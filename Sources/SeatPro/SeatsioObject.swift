@@ -35,3 +35,13 @@ extension SeatsioObject: Equatable {
         lhs.id == rhs.id
     }
 }
+
+
+public struct CartObject: Decodable {
+    public let seats: [SeatsioObject]?
+    public let ga: [SeatsioObject]?
+    public init(seats: [SeatsioObject]?, ga: [SeatsioObject]?) {
+        self.seats = seats
+        self.ga = ga
+    }
+}

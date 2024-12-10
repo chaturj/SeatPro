@@ -24,9 +24,7 @@ public class SeatsioWebView: WKWebView {
     
     private func loadSeatingChart() {
         let callbacks = self.buildCallbacksConfiguration().joined(separator: ",")
-        print(callbacks)
         let config = self.buildConfiguration()
-        print(config)
         let data = config.data(using: .utf8)!
         do {
             let f = try JSONDecoder().decode(ChartKey.self, from: data)
@@ -37,7 +35,7 @@ public class SeatsioWebView: WKWebView {
                 .replacingOccurrences(of: "%configAsJs%", with: callbacks)
             self.loadHTMLString(htmlString, baseURL: nil)
         } catch {
-            print(error)
+            print("Error Load html:\(error.localizedDescription)")
         }
         
         
@@ -63,7 +61,12 @@ public class SeatsioWebView: WKWebView {
             }
             callbacks.append(buildCallbackConfigAsJS("onSeatDeselect"))
         }
-        print(callbacks)
+        if (self.seatsioConfig.onCartChange != nil) {
+            bridge.register("onCartChange") { (data, callback) in
+                self.seatsioConfig.onCartChange!(decodeSeatsioCartObjects(firstArg(data)))
+            }
+            callbacks.append(buildCallbackConfigAsJS("onCartChange"))
+        }
         return callbacks
     }
     private func buildCallbackConfigAsJS(_ name: String) -> String {
