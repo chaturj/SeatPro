@@ -15,7 +15,7 @@ public final class EventManagerConfig: SeatsioConfig {
     public private(set) var onObjectSelected: ((SeatsioObject) -> Void)?
     public private(set) var onObjectDeselected: ((SeatsioObject) -> Void)?
     public private(set) var onObjectClicked: ((SeatsioObject) -> Void)?
-
+    public private(set) var onCartChange: ((CartObject) -> Void)?
     
     public init() {}
     
@@ -52,7 +52,10 @@ public final class EventManagerConfig: SeatsioConfig {
         return self
     }
 
-   
+    public func onCartChange(_ onCartChange: @escaping (CartObject) -> ()) -> Self {
+        self.onCartChange = onCartChange
+        return self
+    }
 
     
     
