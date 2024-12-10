@@ -4,4 +4,5 @@ public protocol SeatsioConfig {
     var onObjectClicked: ((SeatsioObject) -> Void)? { get }
     var onObjectSelected: ((SeatsioObject) -> Void)? { get }
     var onObjectDeselected: ((SeatsioObject) -> Void)? { get }
+    var onCartChange: ((CartObject) -> Void)? { get }
 }
