@@ -101,6 +101,10 @@ func decodeSeatsioObjects(_ data: Any) -> [SeatsioObject] {
     return try! JSONDecoder().decode([SeatsioObject].self, from: dataToDecode)
 }
 
+func decodeSeatsioCartObjects(_ data: Any) -> CartObject {
+    let dataToDecode = (data as! String).data(using: .utf8)!
+    return try! JSONDecoder().decode(CartObject.self, from: dataToDecode)
+}
 
 
 
